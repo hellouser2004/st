@@ -1,0 +1,28 @@
+		Practical No 8 
+Q.Write and test a program to get the number of items in a list / combo 
+box.
+
+package mypack;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement; 
+import org.openqa.selenium. firefox. FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class p8 {
+	static String driverPath ="E:\\st\\geckodriver\\geckodriver-v0.24.0-win32";
+ 
+		public static WebDriver driver;
+
+		public static void main(String[] args) {
+// TODO Auto-generated method stub
+			System.setProperty("webdriver.gecko.driver",driverPath);
+			WebDriver driver=new FirefoxDriver();
+			driver.get("https://www.facebook.com/reg/");
+			Select se = new Select(driver.findElement(By.id("month")));
+			java.util.List < WebElement > mylist=se.getOptions();
+			mylist.size();
+			System.out.println("Number of items="+mylist.size());
+}
+}
+

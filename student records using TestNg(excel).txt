@@ -1,0 +1,60 @@
+	Practical no 5
+
+Aim: Write and test a program to update 10 student records into table into 
+Excel file
+
+package mypackage;
+
+import jxl.*;
+
+import jxl.write.*;
+import java.io.*;
+
+import org.junit.Test;
+
+public class countstuds {
+
+	@Test
+	public void testImportexport1() throws Exception {
+		FileInputStream fi = new FileInputStream("SampleData file(97-2003Extension file)");
+		Workbook w = Workbook.getWorkbook(fi);
+		Sheet s = w.getSheet(0);
+		String a[][] = new String[s.getRows()][s.getColumns()];
+		FileOutputStream fo = new FileOutputStream("Result data File(97-2003.extenstion file)");
+		WritableWorkbook wwb = Workbook.createWorkbook(fo);
+		WritableSheet ws = wwb.createSheet("result1", 0);
+		for (int i = 0; i < s.getRows(); i++)
+		{
+			for (int j = 0; j < s.getColumns(); j++)
+			{
+				a[i][j]=s.getCell(j,i).getContents();
+				Label l2=new Label(j,i,a[i][j]);
+				ws.addCell(l2);
+				Label l1=new Label(6,0,"Results");
+				
+				ws.addCell(l1);
+			}
+		}
+		for (int i = 1; i < s.getRows(); i++)
+		{
+			for (int j = 2; j < s.getColumns(); j++)
+			{
+				a[i][j]=s.getCell(j,i).getContents();
+				int x=Integer.parseInt(a[i][j]);
+				if(x>35)
+				{
+					Label l1=new Label(6,i,"Pass");
+					ws.addCell(l1);
+				}
+				else
+				{
+					Label l1= new Label(6,i,"Fail");
+					ws.addCell(l1);
+					break;
+				}
+			}
+		}
+		wwb.write();
+		wwb.close();
+	}
+	}
